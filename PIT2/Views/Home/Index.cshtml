@@ -1,0 +1,42 @@
+﻿@model List<Produto>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="products-container">
+    @foreach (var p in Model)
+    {
+        <div class="product-card">
+            <img src="@p.Photo" class="product-image" />
+            <h3 class="product-name">@p.Name</h3>
+            <p class="product-price">R$ @p.Price</p>
+
+            <button class="add-button custom-modal-open-btn"
+                    onclick="openModal(this)"
+                    data-nome="@p.Name"
+                    data-id = "@p.Id"
+                    data-preco="@p.Price"
+                    data-descricao="@p.Description"
+                    data-imagem="@p.Photo">
+                <img width="25px" src="~/media/cart-plus-svgrepo-com.svg">
+            </button>
+        </div>
+    }
+</div>
+
+<!-- Modal isolado -->
+<div id="productModal" class="custom-modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal()">&times;</span>
+        <div class="modal-body">
+            <img id="productImage" src="" alt="Produto">
+            <div class="product-info">
+                <h2 id="productName"></h2>
+                <p id="productDescription"></p>
+                <p id="productPrice"></p>
+                <input width="1000" type="number" id="productQtd" name="productQtd" min="1" max="100" />
+                <button class="add-to-cart-btn" onclick="addToCart()">Adicionar ao Carrinho</button>
+            </div>
+        </div>
+    </div>
+</div>

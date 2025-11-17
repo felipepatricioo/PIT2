@@ -1,0 +1,203 @@
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+}
+
+.products-container {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding: 20px;
+}
+
+.product-card {
+    width: 220px;
+    background: #fff;
+    padding: 16px;
+    border-radius: 18px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: 0.2s ease;
+}
+
+    .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+    }
+
+.product-image {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.product-name {
+    margin-top: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-align: center;
+    color: #333;
+}
+
+.product-price {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #27ae60;
+    margin-bottom: 12px;
+}
+
+.add-button {
+    width: 100%;
+    padding: 10px 0;
+    background: #27ae60 !important;
+    color: white;
+    font-size: 1rem;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+    .add-button:hover {
+        background: #1e8f4c;
+    }
+
+
+/* Modal geral */
+.custom-modal {
+    display: none; /* escondido por padrão */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5);
+    transition: all 0.3s ease-in-out;
+}
+
+    /* Conteúdo do modal */
+    .custom-modal .modal-content {
+        background-color: #fff;
+        margin: 5% auto;
+        padding: 20px;
+        border-radius: 12px;
+        width: 90%;
+        max-width: 600px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        animation: customFadeIn 0.3s ease;
+    }
+
+    /* Close button */
+    .custom-modal .close-btn {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+        .custom-modal .close-btn:hover {
+            color: #000;
+        }
+
+    /* Corpo do modal */
+    .custom-modal .modal-body {
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+        align-items: flex-start;
+        flex-wrap: wrap;
+    }
+
+        .custom-modal .modal-body img {
+            max-width: 150px;
+            border-radius: 8px;
+        }
+
+    .custom-modal .product-info h2 {
+        margin: 0 0 10px 0;
+        font-size: 1.5rem;
+    }
+
+    .custom-modal .product-info p {
+        margin: 5px 0;
+        color: #555;
+    }
+
+    .custom-modal .add-to-cart-btn {
+        margin-top: 15px;
+        padding: 10px 20px;
+        background-color: #28a745;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+        .custom-modal .add-to-cart-btn:hover {
+            background-color: #1e7e34;
+        }
+
+/* Animação do modal */
+@keyframes customFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+    .custom-modal .modal-body {
+        flex-direction: column;
+        align-items: center;
+    }
+
+        .custom-modal .modal-body img {
+            max-width: 80%;
+        }
+}
+
+/* Botão de abrir modal (isolado) */
+.custom-modal-open-btn {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+    .custom-modal-open-btn:hover {
+        background-color: #0056b3;
+    }

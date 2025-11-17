@@ -1,0 +1,201 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cupcake Store - Contato</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #faf7f5;
+            color: #333;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        h1 {
+            margin-top: 0;
+        }
+
+        .descricao {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+        }
+
+        input, textarea {
+            padding: 12px;
+            font-size: 1rem;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            padding: 14px;
+            font-size: 1rem;
+            border: none;
+            background: #27ae60;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+            button:hover {
+                background: #e63e75;
+            }
+
+        .socials {
+            margin-top: 40px;
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+            .socials svg {
+                width: 34px;
+                height: 34px;
+                cursor: pointer;
+                transition: 0.2s;
+            }
+
+                .socials svg:hover {
+                    opacity: 0.7;
+                }
+
+        #openChat {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 14px 20px;
+            background: deepskyblue;
+            color: #fff;
+            border-radius: 50px;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+        }
+
+        #chatWindow {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 300px;
+            height: 380px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+            display: none;
+            flex-direction: column;
+        }
+
+        #chatHeader {
+            background: deepskyblue;
+            padding: 10px;
+            color: white;
+            border-radius: 12px 12px 0 0;
+            text-align: center;
+        }
+
+        #chatBody {
+            flex: 1;
+            padding: 10px;
+            overflow-y: auto;
+            font-size: 0.9rem;
+        }
+
+        .msg {
+            background: #eee;
+            padding: 8px;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            max-width: 80%;
+        }
+
+        #chatInput {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid #ddd;
+        }
+
+            #chatInput input {
+                flex: 1;
+                padding: 8px;
+                border-radius: 8px;
+                border: 1px solid #ccc;
+            }
+    </style>
+</head>
+<body>
+    <header style="color: white; background-color: deepskyblue; padding: 20px; text-align: center;">
+        <h1>Cupcake Store</h1>
+    </header>
+
+    <div class="container">
+        <h2>Entre em Contato</h2>
+        <p class="descricao">
+            A Cupcake Store é especializada em cupcakes artesanais feitos com ingredientes frescos e selecionados. Nosso objetivo é adoçar seus dias com produtos feitos com carinho e muita criatividade. Entre em contato conosco caso encontre algum problema ou tenha alguma dúvida.
+        </p>
+
+        <form>
+            <input type="text" placeholder="Seu nome" required>
+            <input type="email" placeholder="Seu email" required>
+            <textarea rows="5" placeholder="Sua mensagem"></textarea>
+            <button type="submit">Enviar Mensagem</button>
+        </form>
+
+        <div class="socials">
+            <a href="#">
+                <svg fill="currentColor" viewBox="0 0 24 24"><path d="M22.46 6c-.77.35-1.6.58-2.46.69a4.27 4.27 0 001.88-2.35 8.56 8.56 0 01-2.72 1.05 4.25 4.25 0 00-7.38 2.9c0 .33.04.65.1.96A12.07 12.07 0 013 4.79a4.25 4.25 0 001.32 5.67 4.22 4.22 0 01-1.93-.54v.05a4.26 4.26 0 003.41 4.17 4.3 4.3 0 01-1.92.07 4.26 4.26 0 003.97 2.95A8.53 8.53 0 012 19.54a12.06 12.06 0 006.56 1.92c7.88 0 12.2-6.53 12.2-12.2 0-.19 0-.39-.01-.58A8.72 8.72 0 0024 5.1a8.42 8.42 0 01-2.54.9z" /></svg>
+            </a>
+            <a href="#">
+                <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.04c-5.5 0-9.96 4.46-9.96 9.96 0 4.41 3.6 8.06 8.28 8.87v-6.27H7.9v-2.6h2.42V9.83c0-2.4 1.43-3.72 3.62-3.72 1.05 0 2.15.19 2.15.19v2.37H14.7c-1.31 0-1.72.82-1.72 1.66v1.97h2.93l-.47 2.6h-2.46v6.27c4.68-.81 8.28-4.46 8.28-8.87 0-5.5-4.46-9.96-9.96-9.96z" /></svg>
+            </a>
+            <a href="#">
+                <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.2c-5.43 0-9.8 4.37-9.8 9.8s4.37 9.8 9.8 9.8 9.8-4.37 9.8-9.8-4.37-9.8-9.8-9.8zm3.95 6.06c-.43-.1-1.52-.24-2.88-.24-1.39 0-2.48.15-2.88.24-.88.2-1.5.88-1.7 1.7-.1.43-.24 1.52-.24 2.88s.15 2.48.24 2.88c.2.88.88 1.5 1.7 1.7.43.1 1.52.24 2.88.24s2.48-.15 2.88-.24c.88-.2 1.5-.88 1.7-1.7.1-.43.24-1.52.24-2.88s-.15-2.48-.24-2.88c-.2-.88-.88-1.5-1.7-1.7zm-3.95 7.37a3.17 3.17 0 110-6.34 3.17 3.17 0 010 6.34zm3.3-5.73a.74.74 0 110-1.48.74.74 0 010 1.48z" /></svg>
+            </a>
+        </div>
+    </div>
+
+    <button id="openChat">Chat</button>
+
+    <div id="chatWindow">
+        <div id="chatHeader">Atendimento Cupcake Store</div>
+        <div id="chatBody">
+            <div class="msg">Olá, como posso ajudar você hoje</div>
+            <div class="msg">Temos cupcakes fresquinhos</div>
+        </div>
+        <div id="chatInput">
+            <input type="text" placeholder="Digite uma mensagem..." disabled>
+        </div>
+    </div>
+
+    <script>
+        const openChat = document.getElementById('openChat');
+        const chatWindow = document.getElementById('chatWindow');
+
+        openChat.addEventListener('click', () => {
+            chatWindow.style.display = 'flex';
+        });
+    </script>
+</body>
+</html>

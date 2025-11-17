@@ -1,0 +1,520 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrinho</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #faf7f5;
+            color: #333;
+        }
+
+        .container {
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+            padding: 30px;
+        }
+
+        .cart-section {
+            width: 60%;
+        }
+
+        .summary-section {
+            width: 28%;
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+            height: fit-content;
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 15px;
+            background: #fff;
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+        }
+
+        .cart-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 8px;
+            object-fit: cover;
+            background: #eee;
+        }
+
+        .info {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .qty {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .qty-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
+            border: none;
+            background: #ddd;
+            cursor: pointer;
+        }
+
+        .coupon-box, .payment-type-box, .payment-box, .delivery-box {
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+        }
+
+        .input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+
+        .apply-btn, .finish-btn {
+            width: 100%;
+            padding: 14px;
+            background: deepskyblue;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .summary-section h3 {
+            margin-top: 0;
+        }
+
+        .summary-line {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+        }
+
+        .total {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        .customization-box {
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+        }
+
+        .custom-radio {
+            display: flex;
+            gap: 25px;
+            margin-top: 10px;
+            font-size: 15px;
+        }
+
+            .custom-radio input[type="radio"] {
+                width: 18px;
+                height: 18px;
+                cursor: pointer;
+            }
+
+
+        .custom-box {
+            background: #ffffff;
+            padding: 18px;
+            border-radius: 12px;
+            box-shadow: 0 0 8px rgba(0,0,0,0.12);
+            margin-bottom: 20px;
+        }
+
+        .custom-box-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 12px;
+            color: #333;
+        }
+
+        .custom-box-content {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .custom-label {
+            font-size: 15px;
+            font-weight: 600;
+            color: #444;
+        }
+
+        .custom-input {
+            padding: 10px 12px;
+            font-size: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            outline: none;
+            transition: 0.2s;
+        }
+
+            .custom-input:focus {
+                border-color: #3498db;
+                box-shadow: 0 0 0 2px rgba(52,152,219,0.2);
+            }
+    </style>
+</head>
+<body>
+
+    <header style="text-align: center; font-size: 1.6rem; font-weight: bold;">
+        Carrinho
+    </header>
+
+    <div class="container" id="carrinho-container">
+        <div>
+            <h3>
+                Você ainda não adicionou nenhum produto em seu carrinho!
+            </h3>
+        </div>
+    </div>
+
+</body>
+</html>
+
+<script>
+    const itens = JSON.parse(sessionStorage.getItem("carrinho") || "[]");
+    var carrinhoObj = {};
+
+    const carrinhoContainer = document.getElementById("carrinho-container");
+    var itensContainer = {}
+    var summaryContainer = {}
+
+    if (itens.length > 0){
+        carrinhoContainer.innerHTML = `
+        <div class="cart-section" id="cart-section">
+
+            <div class="cart-itens" id="cart-itens">
+            </div>
+
+            <div class="custom-box">
+                <h3 class="custom-box-title">E-mail para Contato</h3>
+
+                <div class="custom-box-content">
+                    <label for="emailCliente" class="custom-label">Informe seu e-mail:</label>
+                    <input type="text" id="emailCliente" name="emailCliente" class="custom-input" placeholder="seuemail@exemplo.com" />
+                </div>
+            </div>
+
+            <div class="customization-box">
+                <h3>Deseja Personalização? (Adicional de R$ 20)</h3>
+
+                <div class="custom-radio">
+                    <label>
+                        <input type="radio" name="custom" value="sim" onchange="showCustomization(this)">
+                        Sim
+                    </label>
+
+                    <label>
+                        <input type="radio" name="custom" value="nao" onchange="showCustomization(this)" checked>
+                        Não
+                    </label>
+                </div>
+
+                <div id="custom-text-area" style="display:none; margin-top:15px;">
+                    <textarea class="input" id="customizacaoTxt" rows="3" placeholder="Descreva sua personalização"></textarea>
+                </div>
+            </div>
+
+
+            <div class="coupon-box">
+                <h3>Cupom de Desconto</h3>
+                <input type="text" class="input" placeholder="Digite seu cupom" id="cupom"/>
+                <button class="apply-btn" onclick="aplicarCupom()">Aplicar</button>
+            </div>
+
+            <div class="payment-type-box">
+                <h3>Forma de pagamento</h3>
+                <label for="payment">Escolha a forma de pagamento</label>
+                <select id="payment" name="payment" onchange="handlePaymentSelect(this.value)">
+                    <option value="1">
+                        Cartao de credito
+                    </option>
+                    <option value="2">
+                        Pix
+                    </option>
+                    <option value="3">
+                        Boleto
+                    </option>
+                </select>
+            </div>
+
+            <div class="delivery-box">
+                <h3>Informações de Entrega</h3>
+                <span style="color:red">Atenção: realizamos entregas apenas para Curitiba e RMC com o valor fixo de R$ 15,00<span/>
+                <input class="input" type="text" id="deliveryName" placeholder="Nome Completo" required />
+                <input class="input" type="text" id="deliveryAddress" placeholder="Endereço" required />
+                <input class="input" type="text" id="deliveryCEP" placeholder="CEP" required />
+            </div>
+
+            <div class="payment-box" id="payment-box">
+                <h3>Dados do Cartão</h3>
+                <input class="input" type="text" id="paymentCardNumber" placeholder="Número do Cartão" required />
+                <input class="input" type="text" id="paymentCardName" placeholder="Nome no Cartão" required />
+                <input class="input" type="text" id="paymentCardValidade" placeholder="Validade (MM/AA)" required />
+                <input class="input" type="text" id="paymentCVV" placeholder="CVV" required />
+            </div>
+
+        </div>
+        <div class="summary-section" id="summary-section"></div>
+        `;
+
+        summaryContainer = document.getElementById("summary-section");
+        itensContainer = document.getElementById("cart-itens");
+
+        carrinhoObj = {
+            Itens: itens
+        }
+
+        updateSummary();
+        updateItens();
+    } 
+
+    function showCustomization(radio) {
+        const box = document.getElementById('custom-text-area');
+        if (radio.value === "sim") {
+            carrinhoObj.UsarCustomizacao = true;
+            box.style.display = "block";
+        } else {
+            carrinhoObj.UsarCustomizacao = false;
+            box.style.display = "none";
+        }
+    }
+
+    function updateSummary(desconto = 0){
+        var totalValue = 0;
+        itens.forEach(p => {
+            totalValue += p.Price * p.Quantity;
+        })
+
+        var descontoHtml = "";
+        var valorDesconto = 0;
+
+        if (desconto != 0){
+            valorDesconto = (totalValue * desconto) / 100;
+            descontoHtml = `<div class="summary-line" style="color:green"><span>Desconto</span><span>R$ ${valorDesconto}</span></div>`
+        }
+
+        summaryContainer.innerHTML = `<h3>Resumo do Pedido</h3>
+        <div class="summary-line"><span>Entrega</span><span>R$ 15,00</span></div>
+        <div class="summary-line"><span>Subtotal</span><span>R$ ${totalValue}</span></div>
+        ${descontoHtml}
+        <div class="summary-line total"><span>Total</span><span>R$ ${totalValue - valorDesconto + 15}</span></div>
+
+        <button class="finish-btn" onclick="finalizarPedido()">Finalizar Pedido</button>`
+
+    }
+
+    function updateItens(){
+        itensContainer.innerHTML = "";
+        carrinhoObj.Itens.forEach(p => {
+            itensContainer.innerHTML += `
+                    <div class="cart-item">
+                        <img class="cart-img" src="${p.Photo}" />
+                        <div class="info">
+                            <h3>${p.Name}</h3>
+                            <p>${p.Price}</p>
+                            <div class="qty">
+                                <button class="qty-btn" onclick="subtractItem('${p.Id}')">-</button>
+                                <span id="qtd_${p.Id}">${p.Quantity}<span>
+                                <button class="qty-btn" onclick="addItem('${p.Id}')">+</button>
+                                <button style="background-color:red; color:white" class="qty-btn" onclick="removeItem('${p.Id}')">x</button>
+                            </div>
+                        </div>
+                    </div>
+            `;
+        });
+    }
+
+    async function aplicarCupom(){
+        var cupom = document.getElementById('cupom');
+        var cupomValue = cupom.value;
+
+        var response = await fetch(`/Carrinho/GetDesconto?cupom=${cupomValue}`);
+
+        var result = await response.text();
+
+        var discountValue = parseInt(result);
+
+        if (discountValue == 0){
+            return alert("Cupom não encontrado!")
+        }
+
+        updateSummary(discountValue);
+    }
+
+    function subtractItem(id){
+        const index = carrinhoObj.Itens.findIndex(item => item.Id == id);
+        if (index == -1) {
+            return;
+        }
+
+        var intValue = parseInt(carrinhoObj.Itens[index].Quantity);
+
+        if (intValue - 1 == 0){
+            carrinhoObj.Itens.splice(index, 1);
+            updateCarrinhoZerado();
+            return;
+        }
+
+        var finalValue = intValue - 1;
+
+        carrinhoObj.Itens[index].Quantity = finalValue;
+        updateQtdValue(id, finalValue);
+
+        updateItens();
+    }
+
+    function updateCarrinhoZerado(){
+        if (carrinhoObj.Itens.length == 0){
+            itensContainer.innerHTML = "";
+            carrinhoContainer.innerHTML = "<h3> Você ainda não adicionou nenhum produto em seu carrinho! </h3>";
+        }
+
+        sessionStorage.setItem("carrinho", JSON.stringify(carrinhoObj));
+    }
+
+    function addItem(id){
+        const index = carrinhoObj.Itens.findIndex(item => item.Id == id);
+        if (index == -1) {
+            return;
+        }
+
+        var intValue = parseInt(carrinhoObj.Itens[index].Quantity);
+
+        carrinhoObj.Itens[index].Quantity = intValue + 1;
+        updateQtdValue(id, intValue);
+        updateItens();
+    }
+
+    function updateQtdValue(id, value){
+        const qtd = document.getElementById(`qtd_${id}`);
+
+        qtd.textContent = value;
+    }
+
+    function removeItem(id){
+        const index = carrinhoObj.Itens.findIndex(item => item.Id == id);
+        if (index == -1) {
+            return;
+        }
+
+        carrinhoObj.Itens.splice(index, 1);
+
+        if (carrinhoObj.Itens.length == 0){
+            updateCarrinhoZerado();
+            return;
+        }
+
+        updateItens();
+    }
+
+    function handlePaymentSelect(value){
+        const paymentContainer = document.getElementById("payment-box");
+
+        switch (value){
+            case "1":
+                return creditCardPaymentBox(paymentContainer);
+        }
+    }
+
+    function creditCardPaymentBox(paymentContainer){
+       paymentContainer.innerHTML = `
+        <h3>Dados do Cartão</h3>
+        <input class="input" type="text" placeholder="Número do Cartão" />
+        <input class="input" type="text" placeholder="Nome no Cartão" />
+        <input class="input" type="text" placeholder="Validade (MM/AA)" />
+        <input class="input" type="text" placeholder="CVV" />`
+    }
+
+    function finalizarPedido(){
+        var deliveryName = document.getElementById("deliveryName").value;
+        var deliveryAddress = document.getElementById("deliveryAddress").value;
+        var deliveryCEP = document.getElementById("deliveryCEP").value;
+
+        var deliveryObj = {
+            Name: deliveryName,
+            Address: deliveryAddress,
+            CEP: deliveryCEP
+        }
+
+        var paymentCardNumber = document.getElementById("paymentCardNumber").value;
+        var paymentCardName = document.getElementById("paymentCardName").value;
+        var paymentCardValidade = document.getElementById("paymentCardValidade").value;
+        var paymentCVV = document.getElementById("paymentCVV").value;
+
+        var paymentObj = {
+            CardNumber: paymentCardNumber,
+            CardName: paymentCardName,
+            CardValidade: paymentCardValidade,
+            CVV: paymentCVV,
+        }
+
+        if (carrinhoObj.UsarCustomizacao){
+            var customText = document.getElementById("customizacaoTxt").value;
+            carrinhoObj.Customizacao = customText;
+        };
+
+        var emailCliente = document.getElementById("emailCliente").value;
+
+        carrinhoObj.DeliveryAddress = deliveryObj;
+        carrinhoObj.Payment = paymentObj;
+        carrinhoObj.Email = emailCliente;
+        carrinhoObj.Coupon = document.getElementById('cupom').value;
+
+        fetch('/Carrinho/FinalizarPedido', {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(carrinhoObj)
+            })
+        .then(response => response.json())
+        .then(data => {
+            if (data.sucesso) {
+                sessionStorage.removeItem("carrinho");
+
+                const pedidoJson = encodeURIComponent(JSON.stringify(data.pedido));
+                window.location.href = `/Home/Sucesso?pedido=${pedidoJson}`;
+            } else {
+                alert(data.mensagem || "Erro ao gerar o pedido.");
+            }
+        })
+        .catch(err => {
+            console.error(err);
+            alert("Erro ao gerar o pedido, entre contato conosco via chat ou telefone.");
+        });
+
+    }
+    
+</script>

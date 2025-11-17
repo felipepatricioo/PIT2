@@ -1,0 +1,121 @@
+﻿@{
+    ViewData["Title"] = "Pedido Realizado";
+}
+
+<style>
+    .success-container {
+        max-width: 700px;
+        margin: 40px auto;
+        background: #fff;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        font-family: Arial, sans-serif;
+    }
+
+    .success-title {
+        text-align: center;
+        font-size: 28px;
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: #27ae60;
+    }
+
+    .success-subtitle {
+        text-align: center;
+        font-size: 16px;
+        margin-bottom: 25px;
+        color: #555;
+    }
+
+    .items-list {
+        margin-top: 20px;
+        border-top: 1px solid #e1e1e1;
+        padding-top: 20px;
+    }
+
+    .item-card {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #e9e9e9;
+    }
+
+    .item-image {
+        width: 80px;
+        height: 80px;
+        border-radius: 8px;
+        object-fit: cover;
+        margin-right: 15px;
+    }
+
+    .item-info {
+        flex: 1;
+    }
+
+    .item-name {
+        font-size: 18px;
+        font-weight: bold;
+        margin: 0;
+    }
+
+    .item-qty {
+        font-size: 15px;
+        color: #666;
+        margin: 2px 0;
+    }
+
+    .item-subtotal {
+        font-size: 16px;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .total {
+        margin-top: 25px;
+        padding-top: 15px;
+        border-top: 2px solid #ccc;
+        text-align: right;
+        font-size: 22px;
+        font-weight: bold;
+    }
+
+    .desconto {
+        text-align: right;
+        font-size: 18px;
+        color: #c0392b;
+        margin-top: 5px;
+    }
+
+    .home-btn {
+        display: block;
+        width: 100%;
+        margin-top: 25px;
+        padding: 12px;
+        background: #3498db;
+        color: #fff;
+        font-size: 18px;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        text-align: center;
+        text-decoration: none;
+        transition: 0.3s;
+    }
+
+        .home-btn:hover {
+            background: #2980b9;
+        }
+</style>
+
+<div class="success-container">
+    <h1 class="success-title">Pedido Finalizado!</h1>
+    <p class="success-subtitle">Obrigado pela sua compra! Seu pedido foi registrado com sucesso.</p>
+    <p class="success-subtitle">Foi enviado em seu e-mail a nota fiscal da compra assim como o link de rastreio.</p>
+
+    <div id="pedido-info">
+    </div>
+
+    <a class="home-btn" href="/">Voltar para a Home</a>
+</div>
