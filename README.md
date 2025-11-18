@@ -7,3 +7,5 @@ Algumas coisas foram alteradas para manter a documentação e legibilidade dos r
 esta documentação é dividida em três partes que compõe o trabalho desenvolvido para a disciplina.
 
 Todos os documentos estarão na pasta inicial do repositorio.
+
+O codigo aberto esta localizado na pasta PIT2.
