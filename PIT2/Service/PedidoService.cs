@@ -2,6 +2,7 @@
 using PIT2.Factory;
 using PIT2.Helpers.Extensions;
 using PIT2.Models;
+using System.Globalization;
 using System.Net;
 using System.Net.Mail;
 
@@ -63,8 +64,8 @@ namespace PIT2.Service
             conn.Open();
             var cmdStr = $"INSERT INTO Pedido (Id, Total, Desconto, DataPedido, Email, Customizacao) " +
                 $"         VALUES ('{pedido.Id}'," +
-                $"          {pedido.Total}," +
-                $"          {pedido.Desconto}," +
+                $"          {pedido.Total.ToString(CultureInfo.InvariantCulture)}," +
+                $"          {pedido.Desconto.ToString(CultureInfo.InvariantCulture)}," +
                 $"          '{pedido.DataPedido:yyyy-MM-dd HH:mm:ss}'," +
                 $"          '{pedido.Email}'," +
                 $"          '{pedido.Customizacao}')";
